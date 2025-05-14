@@ -1,0 +1,8 @@
+services:
+    kuntu-docs:
+        container_name: kuntu-docs
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '4000:4000'
