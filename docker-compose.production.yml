@@ -6,10 +6,15 @@ services:
             dockerfile: Dockerfile
         ports:
             - '4000:4000'
+        labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.kuntu-docs.rule=Host(`docs.kuntu.shop`)"
+        depends_on:
+          - traefik
         networks:
-          - frontend
+          - traefik
         restart: unless-stopped
 
 networks:
-  frontend:
+  traefik:
     external: true
