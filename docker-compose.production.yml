@@ -8,9 +8,10 @@ services:
             - '4000:4000'
         labels:
           - "traefik.enable=true"
-          - "traefik.http.routers.kuntu-docs.rule=Host(`docs.kuntu.shop`)"
-        depends_on:
-          - traefik
+          - "traefik.http.routers.kuntu-docs-https.tls=true"
+          - "traefik.http.routers.kuntu-docs-https.tls.certresolver=cloudflare"
+          - "traefik.http.routers.kuntu-docs-https.entrypoints=websecure"
+          - "traefik.http.routers.kuntu-docs-https.rule=Host(`docs.kuntu.shop`)"
         networks:
           - traefik
         restart: unless-stopped
