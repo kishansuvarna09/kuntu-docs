@@ -20,7 +20,7 @@ export default async function RootLayout({
 
   const cspHeader = `
 	default-src 'self' 'self';
-	script-src 'self' 'nonce-${nonce}' 'unsafe-inline';
+	script-src 'self' 'unsafe-inline';
 	style-src 'self' 'unsafe-inline' ;
 	`;
 
@@ -36,9 +36,6 @@ export default async function RootLayout({
       <Head
       // ... Your additional head options
       >
-        {process.env.NODE_ENV === "production" && (
-          <meta property="csp-nonce" content={nonce} />
-        )}
         {process.env.NODE_ENV === "production" && (
           <meta httpEquiv="Content-Security-Policy" content={cspHeader} />
         )}
