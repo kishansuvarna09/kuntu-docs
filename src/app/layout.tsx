@@ -7,14 +7,30 @@ import { getPageMap } from "nextra/page-map";
 import "nextra-theme-docs/style.css";
 
 export const metadata = {
-	// Define your metadata here
-	// For more information on metadata API, see: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
+  // Define your metadata here
+  // For more information on metadata API, see: https://nextjs.org/docs/app/building-your-application/optimizing/metadata
 };
 
 export default async function RootLayout({
-	children,
-}: { children: React.ReactNode }) {
-	return (
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+
+  const cspHeader = `
+	default-src 'self' 'self';
+	script-src 'self' 'nonce-${nonce}';
+	style-src 'self' 'unsafe-inline' ;
+	img-src 'self' blob: data:;
+	object-src 'none';
+	base-uri 'self';
+	form-action 'self';
+	block-all-mixed-content;
+	upgrade-insecure-requests;
+	`;
+
+  return (
     <html
       // Not required, but good for SEO
       lang="en"
@@ -26,10 +42,12 @@ export default async function RootLayout({
       <Head
       // ... Your additional head options
       >
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self';"
-        ></meta>
+        {process.env.NODE_ENV === "production" && (
+          <meta property="csp-nonce" content={nonce} />
+        )}
+        {process.env.NODE_ENV === "production" && (
+          <meta httpEquiv="Content-Security-Policy" content={cspHeader} />
+        )}
         {/* Your additional tags should be passed as `children` of `<Head>` element */}
       </Head>
       <body>
