@@ -26,6 +26,7 @@ export default async function RootLayout({
 			<Head
 			// ... Your additional head options
 			>
+				<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https:;"></meta>
 				{/* Your additional tags should be passed as `children` of `<Head>` element */}
 			</Head>
 			<body>
