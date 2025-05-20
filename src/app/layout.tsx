@@ -20,14 +20,8 @@ export default async function RootLayout({
 
   const cspHeader = `
 	default-src 'self' 'self';
-	script-src 'self' 'nonce-${nonce}';
+	script-src 'self' 'nonce-${nonce}' 'unsafe-inline';
 	style-src 'self' 'unsafe-inline' ;
-	img-src 'self' blob: data:;
-	object-src 'none';
-	base-uri 'self';
-	form-action 'self';
-	block-all-mixed-content;
-	upgrade-insecure-requests;
 	`;
 
   return (
