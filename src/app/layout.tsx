@@ -15,36 +15,39 @@ export default async function RootLayout({
 	children,
 }: { children: React.ReactNode }) {
 	return (
-		<html
-			// Not required, but good for SEO
-			lang="en"
-			// Required to be set
-			dir="ltr"
-			// Suggested by `next-themes` package https://github.com/pacocoursey/next-themes#with-app
-			suppressHydrationWarning
-		>
-			<Head
-			// ... Your additional head options
-			>
-				<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https:;"></meta>
-				{/* Your additional tags should be passed as `children` of `<Head>` element */}
-			</Head>
-			<body>
-				<Layout
-					sidebar={{ autoCollapse: true }}
-					banner={Banner}
-					navbar={Navbar}
-					pageMap={await getPageMap()}
-					footer={Footer}
-					feedback={{
-						content: null,
-					}}
-					editLink={null}
-					// ... Your additional layout options
-				>
-					{children}
-				</Layout>
-			</body>
-		</html>
-	);
+    <html
+      // Not required, but good for SEO
+      lang="en"
+      // Required to be set
+      dir="ltr"
+      // Suggested by `next-themes` package https://github.com/pacocoursey/next-themes#with-app
+      suppressHydrationWarning
+    >
+      <Head
+      // ... Your additional head options
+      >
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self';"
+        ></meta>
+        {/* Your additional tags should be passed as `children` of `<Head>` element */}
+      </Head>
+      <body>
+        <Layout
+          sidebar={{ autoCollapse: true }}
+          banner={Banner}
+          navbar={Navbar}
+          pageMap={await getPageMap()}
+          footer={Footer}
+          feedback={{
+            content: null,
+          }}
+          editLink={null}
+          // ... Your additional layout options
+        >
+          {children}
+        </Layout>
+      </body>
+    </html>
+  );
 }
